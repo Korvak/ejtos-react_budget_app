@@ -1,6 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { changeAllocated, calculateExpenses } from "./budgetSlice";
+import { useSelector } from "react-redux";
 import { ExpenseComponent } from "./expenseComponent";
 
 
@@ -15,8 +14,8 @@ export const ExpensesTable = () => {
                 <tr>
                     <td>Department</td>
                     <td>Allocated budget</td>
-                    <td>Increase by 10</td>
-                    <td>Decrease by 10</td>
+                    <td>Edit</td>
+                    <td>Delete</td>
                 </tr>
             </thead>
             <tbody>

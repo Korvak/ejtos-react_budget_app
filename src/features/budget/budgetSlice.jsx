@@ -35,12 +35,10 @@ class Expense {
 export const budgetSlice = createSlice({
     name : "budget",
     initialState : {
-        value : 0,
+        value : 550,
         expenditure : 0,
-        list : [
-            new Expense("alfa",10).asObj(),
-            new Expense("beta",120).asObj()
-        ]
+        allowCostGtBudget : false,
+        list : []
     },
     reducers : {
         setBudget : (state,action) => {
@@ -63,14 +61,18 @@ export const budgetSlice = createSlice({
             let index = state.list.findIndex(
                 x => x.id === action.payload[0]
                 );
-            state.list[index].allocated = action.payload[1];
+            if (index > -1 ) {
+                state.list[index].allocated = action.payload[1];
+            }
         },
         calculateExpenses : (state) => {
             let total = 0;
             for (let expense of state.list) {
                 total+=expense.allocated;
             }
-            state.expenditure = total;
+            if (total <= state.value || state.allowCostGtBudget) {
+                state.expenditure = total;
+            }       
         }
     }
 });
