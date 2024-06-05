@@ -37,6 +37,24 @@ export const budgetSlice = createSlice({
     initialState : {
         value : 550,
         expenditure : 0,
+        currencyName : "dollar",
+        currencySymbol : "$",
+        currencyExchange : 1.0,
+        currencyId : "dollar",
+        currencies : [
+            {
+                id : "dollar",
+                name : "dollar",
+                exchange : 1.0,
+                symbol : "$" 
+            },
+            {
+                id : "pound",
+                name : "pound",
+                exchange : 0.8,
+                symbol : "£" 
+            }
+        ],
         allowCostGtBudget : false,
         list : []
     },
@@ -52,10 +70,10 @@ export const budgetSlice = createSlice({
             state.list.push(expense);
         },
         removeExpense : (state,action) => {
-            let expense = state.list.splice(
+            state.list.splice(
                 state.list.findIndex(
                     x => x.id === action.payload
-                    ),1);
+                ),1);
         },
         changeAllocated : (state,action) => {
             let index = state.list.findIndex(
@@ -73,9 +91,22 @@ export const budgetSlice = createSlice({
             if (total <= state.value || state.allowCostGtBudget) {
                 state.expenditure = total;
             }       
+        },
+        setCurrency : (state, action) => {
+            let currency = action.payload;
+            currency = currency.toLowerCase();
+            let filtered = state.currencies.filter( (curr) => curr.id === currency);
+            if (filtered.length > 0 ) {
+                //first we set the currency
+                filtered = filtered[0];
+                state.currencyId = filtered.id;
+                state.currencyExchange = filtered.exchange;
+                state.currencyName = filtered.name;
+                state.currencySymbol = filtered.symbol;
+            }
         }
     }
 });
 
-export const { setBudget, setExpenditure, createExpense, removeExpense, changeAllocated, calculateExpenses } = budgetSlice.actions;
+export const { setBudget, setExpenditure, setCurrency, createExpense, removeExpense, changeAllocated, calculateExpenses } = budgetSlice.actions;
 export const budgetReducer = budgetSlice.reducer;

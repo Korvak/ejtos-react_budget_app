@@ -8,8 +8,8 @@ export const ExpensesTable = () => {
     const expenses = useSelector( (state) => state.budget.list);
     console.log(expenses);
 
+
     return(
-        <div>
         <table className="w3-table w3-bordered">
             <thead>
                 <tr>
@@ -28,7 +28,5 @@ export const ExpensesTable = () => {
                 
             </tbody>
         </table>
-        <span></span>
-        </div>
     );
 }

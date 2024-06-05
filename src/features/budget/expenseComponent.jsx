@@ -14,6 +14,7 @@ export const ExpenseComponent = (props) => {
     const expenditure = useSelector( (state) => state.budget.expenditure);
     const allowCostGtBudget = useSelector( (state) => state.budget.allowCostGtBudget);
     const allocatableBudget = allowCostGtBudget ? Infinity : budget - expenditure;
+    const curr_exchange = useSelector( (state) => state.budget.currencyExchange);
     const dispatch = useDispatch();
 
 
@@ -45,17 +46,17 @@ export const ExpenseComponent = (props) => {
             <td>{props.name}</td>
             <td>
                 <input id={props.id} className="w3-border-0 w3-transparent budget-input" readOnly={readonly} 
-                type="number" value={value} data-id={props.id} max={allocatableBudget}
+                type="number" value={ (value * curr_exchange).toFixed(2) } data-id={props.id} max={allocatableBudget}
                 onChange={handleChangeAllocated} onBlur={() => {setReadonly(false);}}>
                 </input>
             </td>
             <td>
-                <button className="w3-green w3-round-xlarge" onClick={toggleEditable}>
+                <button className="w3-green w3-round-large" onClick={toggleEditable}>
                     <FontAwesomeIcon icon={faPen} />
                 </button>
             </td>
             <td>
-                <button className="w3-red w3-round-xlarge" data-id={props.id} data-name={props.name} onClick={handleDelete} >
+                <button className="w3-red w3-round-large" data-id={props.id} data-name={props.name} onClick={handleDelete} >
                     <FontAwesomeIcon icon={faMinus} />
                 </button>
             </td>
