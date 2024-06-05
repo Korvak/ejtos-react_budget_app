@@ -9,7 +9,29 @@
 }
 
 .app-budgetPanel {
-    box-sizing: content-box;
+    box-sizing: border-box !important;
     padding-top: 0.5em !important; 
     padding-bottom: 0.5em !important;
+}
+
+.budget-input:read-only,.budget-input:disabled {
+    color : #949393 !important;
+}
+
+@media screen and (min-width: 600px) {
+
+    .app-budgetPanel {
+        max-width: calc(25% - 4px) !important;
+        margin-left: 2px !important;
+        margin-right: 2px !important;
+    }
+}
+
+@media screen and (min-width: 480px) {
+
+    .app-budgetPanel {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
 }

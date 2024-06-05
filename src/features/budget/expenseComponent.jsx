@@ -19,6 +19,7 @@ export const ExpenseComponent = (props) => {
 
     function handleDelete(event) {
         let id = event.target.dataset.id;
+        // eslint-disable-next-line no-restricted-globals
         if (confirm(`are you sure you want to delete the expenditure ${event.target.dataset.name}?`) ) {
             dispatch( removeExpense(id) );
             dispatch( calculateExpenses() );
@@ -43,7 +44,7 @@ export const ExpenseComponent = (props) => {
         <tr id={props.id}>
             <td>{props.name}</td>
             <td>
-                <input id={props.id} className="w3-border-0 w3-transparent" readOnly={readonly} 
+                <input id={props.id} className="w3-border-0 w3-transparent budget-input" readOnly={readonly} 
                 type="number" value={value} data-id={props.id} max={allocatableBudget}
                 onChange={handleChangeAllocated} onBlur={() => {setReadonly(false);}}>
                 </input>
