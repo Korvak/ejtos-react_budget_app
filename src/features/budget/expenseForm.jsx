@@ -6,8 +6,9 @@ import { createExpense, calculateExpenses } from "./budgetSlice";
 export const ExpenseForm = () => {
     const budget = useSelector((state) => state.budget.value);
     const expenditure = useSelector( (state) => state.budget.expenditure);
+    const curr_exchange = useSelector( (state) => state.budget.currencyExchange);
     const allowCostGtBudget = useSelector( (state) => state.budget.allowCostGtBudget);
-    const allocatable = allowCostGtBudget ? Infinity : budget - expenditure;
+    const allocatable = allowCostGtBudget ? Infinity : ( ( budget - expenditure ) * curr_exchange).toFixed(2);
     const dispatch = useDispatch();
 
     function createExpenseEvent(event) {

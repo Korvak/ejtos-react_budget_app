@@ -9,7 +9,7 @@ import { removeExpense, changeAllocated, calculateExpenses } from "./budgetSlice
 
 export const ExpenseComponent = (props) => {
     const [value, setValue] = useState(props.allocated);
-    const [readonly, setReadonly] = useState(true);
+    const [editable, setEditable] = useState(false);
     const budget = useSelector((state) => state.budget.value);
     const expenditure = useSelector( (state) => state.budget.expenditure);
     const allowCostGtBudget = useSelector( (state) => state.budget.allowCostGtBudget);
@@ -28,7 +28,7 @@ export const ExpenseComponent = (props) => {
         }
     }
 
-    function toggleEditable() {setReadonly(!readonly);}
+    function toggleEditable() {setEditable(!editable);}
 
     function handleChangeAllocated(event) {
         let element = event.target;
@@ -46,10 +46,10 @@ export const ExpenseComponent = (props) => {
         <tr id={props.id}>
             <td>{props.name}</td>
             <td>
-                <input value={curr_symbol} readOnly={readonly} disabled={readonly} className="budget-symbol budget-symbol-color w3-border-0 w3-transparent"></input>
-                <input id={props.id} className="w3-border-0 w3-transparent budget-input" readOnly={readonly} 
+                <input value={curr_symbol} readOnly={!editable} disabled={!editable} className="budget-symbol budget-symbol-color w3-border-0 w3-transparent"></input>
+                <input id={props.id} className="w3-border-0 w3-transparent budget-input" readOnly={!editable} disabled={!editable}
                 type="number" value={ (value * curr_exchange).toFixed(2) } data-id={props.id} max={allocatableBudget}
-                onChange={handleChangeAllocated} onBlur={() => {setReadonly(false);}}>
+                onChange={handleChangeAllocated} onBlur={() => {setEditable(false);}}>
                 </input>
             </td>
             <td>

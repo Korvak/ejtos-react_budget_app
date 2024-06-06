@@ -42,8 +42,8 @@ export const BudgetPanel = () => {
                 <input className="w3-third w3-border-0 w3-transparent w3-cell-middle budget-input" type="number"
                  value={ (budget * curr_exchange).toFixed(2) } readOnly={budgetEditable} onChange={changeBudget} max="20000"></input>
                 <input className="w3-col w3-cell-middle w3-transparent w3-border-0 budget-symbol budget-symbol-color" value={curr_symbol} disabled={budgetEditable} readOnly={budgetEditable}/>
-                <button className="w3-third w3-border-0 w3-cell-middle" onClick={toggleEdit}>
-                    <FontAwesomeIcon icon={faPen} />
+                <button className="w3-third w3-border-0 w3-cell-middle w3-right-align">
+                    <FontAwesomeIcon icon={faPen} onClick={toggleEdit} />
                 </button>
             </div>
             <div className="w3-quarter w3-row app-budgetPanel w3-container w3-green">

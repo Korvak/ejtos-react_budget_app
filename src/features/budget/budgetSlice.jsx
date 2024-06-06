@@ -78,7 +78,7 @@ export const budgetSlice = createSlice({
             state.expenditure = action.payload;
         },
         createExpense : (state,action) => {
-            let expense = new Expense(action.payload[0], action.payload[1]).asObj();
+            let expense = new Expense(action.payload[0], (action.payload[1] / state.currencyExchange).toFixed(2) ).asObj();
             state.list.push(expense);
         },
         removeExpense : (state,action) => {
