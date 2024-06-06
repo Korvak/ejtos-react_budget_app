@@ -15,6 +15,7 @@ export const ExpenseComponent = (props) => {
     const allowCostGtBudget = useSelector( (state) => state.budget.allowCostGtBudget);
     const allocatableBudget = allowCostGtBudget ? Infinity : budget - expenditure;
     const curr_exchange = useSelector( (state) => state.budget.currencyExchange);
+    const curr_symbol = useSelector( (state) => state.budget.currencySymbol);
     const dispatch = useDispatch();
 
 
@@ -45,6 +46,7 @@ export const ExpenseComponent = (props) => {
         <tr id={props.id}>
             <td>{props.name}</td>
             <td>
+                <input value={curr_symbol} readOnly={readonly} disabled={readonly} className="budget-symbol budget-symbol-color w3-border-0 w3-transparent"></input>
                 <input id={props.id} className="w3-border-0 w3-transparent budget-input" readOnly={readonly} 
                 type="number" value={ (value * curr_exchange).toFixed(2) } data-id={props.id} max={allocatableBudget}
                 onChange={handleChangeAllocated} onBlur={() => {setReadonly(false);}}>

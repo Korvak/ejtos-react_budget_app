@@ -51,8 +51,20 @@ export const budgetSlice = createSlice({
             {
                 id : "pound",
                 name : "pound",
-                exchange : 0.8,
+                exchange : 0.78,
                 symbol : "£" 
+            },
+            {
+                id : "euro",
+                name : "euro",
+                exchange : 0.92,
+                symbol : "€" 
+            },
+            {
+                id : "rupee",
+                name : "rupee",
+                exchange : 83.46,
+                symbol : "₹" 
             }
         ],
         allowCostGtBudget : false,

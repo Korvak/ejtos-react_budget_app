@@ -38,20 +38,23 @@ export const BudgetPanel = () => {
     return (
        <div className="w3-row w3-section w3-container">
             <div className="w3-quarter w3-row w3-light-gray app-budgetPanel w3-container">
-                <span className="w3-third w3-cell-middle w3-border-0 w3-transparent">Budget</span>
+                <span className="w3-quarter w3-cell-middle w3-border-0 w3-transparent">Budget</span>
                 <input className="w3-third w3-border-0 w3-transparent w3-cell-middle budget-input" type="number"
                  value={ (budget * curr_exchange).toFixed(2) } readOnly={budgetEditable} onChange={changeBudget} max="20000"></input>
+                <input className="w3-col w3-cell-middle w3-transparent w3-border-0 budget-symbol budget-symbol-color" value={curr_symbol} disabled={budgetEditable} readOnly={budgetEditable}/>
                 <button className="w3-third w3-border-0 w3-cell-middle" onClick={toggleEdit}>
                     <FontAwesomeIcon icon={faPen} />
                 </button>
             </div>
             <div className="w3-quarter w3-row app-budgetPanel w3-container w3-green">
-                <span className="w3-half w3-cell-middle">Remaining</span>
-                <input className="w3-half w3-cell-middle w3-border-0 w3-transparent" value={  ( (budget - expenditure) * curr_exchange).toFixed(2) } disabled={true}></input>
+                <span className="w3-third w3-cell-middle">Remaining</span>
+                <input className="w3-third w3-cell-middle w3-border-0 w3-transparent" type="number" value={  ( (budget - expenditure) * curr_exchange).toFixed(2) } disabled={true}></input>
+                <input className="w3-third w3-cell-middle w3-transparent w3-border-0 budget-symbol" value={curr_symbol} disabled={true}/>
             </div>
             <div className="w3-quarter w3-row app-budgetPanel w3-container w3-blue">
-                <span className="w3-half w3-cell-middle">Spent</span>
-                <input id="spent" className="w3-half w3-cell-middle w3-border-0 w3-transparent" value={ (expenditure * curr_exchange).toFixed(2) } disabled={true}></input>
+                <span className="w3-third w3-cell-middle">Spent</span>
+                <input id="spent" className="w3-third w3-cell-middle w3-border-0 w3-transparent" type="number" value={ (expenditure * curr_exchange).toFixed(2) } disabled={true}></input>
+                <input className="w3-third w3-cell-middle w3-transparent w3-border-0 budget-symbol" value={curr_symbol} disabled={true}/>
             </div>
             <div className="w3-quarter w3-row app-budgetPanel w3-container w3-green">
                 <span className="w3-third w3-cell-middle">Currency</span>
