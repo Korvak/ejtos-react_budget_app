@@ -36,6 +36,7 @@ export const budgetSlice = createSlice({
     name : "budget",
     initialState : {
         value : 550,
+        maxValue : 20000,
         expenditure : 0,
         currencyName : "dollar",
         currencySymbol : "$",
