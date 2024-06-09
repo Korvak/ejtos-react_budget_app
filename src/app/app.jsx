@@ -7,6 +7,7 @@ import { ExpenseForm } from '../features/budget/expenseForm';
 const App = () => {
     return(
         <div className='App'>
+            <title>Budget Allocator</title>
             <h2 className='w3-container'>Company's Budget Allocation</h2>
             <BudgetPanel/>
             <ExpensesTable></ExpensesTable>
