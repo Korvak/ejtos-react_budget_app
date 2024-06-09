@@ -44,7 +44,6 @@ export const BudgetPanel = () => {
             if (filtered.length > 0 ) {
                 setBaseBudget( (budget * filtered[0].exchange).toFixed(2) );
             }
-            console.log(currencies[currency.toLowerCase()]);
         }
     }
 

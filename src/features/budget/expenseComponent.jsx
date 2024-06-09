@@ -8,16 +8,25 @@ import { removeExpense, changeAllocated, calculateExpenses } from "./budgetSlice
 
 
 export const ExpenseComponent = (props) => {
-    const [value, setValue] = useState(props.allocated);
-    const [editable, setEditable] = useState(false);
     const budget = useSelector((state) => state.budget.value);
     const expenditure = useSelector( (state) => state.budget.expenditure);
     const allowCostGtBudget = useSelector( (state) => state.budget.allowCostGtBudget);
-    const allocatableBudget = allowCostGtBudget ? Infinity : budget - expenditure;
+    const allocatableBudget = allowCostGtBudget ? Infinity : (budget - expenditure) + parseFloat( props.allocated );
     const curr_exchange = useSelector( (state) => state.budget.currencyExchange);
     const curr_symbol = useSelector( (state) => state.budget.currencySymbol);
     const dispatch = useDispatch();
 
+    const real_allocated = ( parseFloat(props.allocated) * curr_exchange).toFixed(2);
+
+    const [expense, setExpense] = useState( real_allocated );
+    const [valid_expense, setValidExpense] = useState( real_allocated );
+    const [editable, setEditable] = useState(false);
+
+    setTimeout( () => {
+        setExpense((props.allocated * curr_exchange).toFixed(2));
+        setValidExpense((props.allocated * curr_exchange).toFixed(2));
+    }
+    , 5);
 
     function handleDelete(event) {
         let id = event.target.dataset.id;
@@ -32,15 +41,27 @@ export const ExpenseComponent = (props) => {
 
     function handleChangeAllocated(event) {
         let element = event.target;
-        if (!element.checkValidity() ) {
-            return element.reportValidity();
-        }
         let val = parseFloat( element.value );
         let id = parseFloat( element.dataset.id );
-        dispatch( changeAllocated([id,val]) );
-        dispatch( calculateExpenses() );
-        setValue(val);
+        setExpense( val );
+        if (element.checkValidity() ) {
+            setValidExpense(val);
+            val = (val / curr_exchange).toFixed(2);
+            dispatch( changeAllocated([id,val]) );
+            dispatch( calculateExpenses() );
+        }
+        else {
+            return element.reportValidity();
+        }
     }
+
+    function onFinishEditAllocated(event) {
+        if (!event.target.checkValidity() ) {
+            setExpense(valid_expense);
+        }
+        setEditable(false);
+    }
+
 
     return (
         <tr id={props.id}>
@@ -48,8 +69,8 @@ export const ExpenseComponent = (props) => {
             <td>
                 <input value={curr_symbol} readOnly={!editable} disabled={!editable} className="budget-symbol budget-symbol-color w3-border-0 w3-transparent"></input>
                 <input id={props.id} className="w3-border-0 w3-transparent budget-input" readOnly={!editable} disabled={!editable}
-                type="number" value={ (value * curr_exchange).toFixed(2) } data-id={props.id} max={allocatableBudget}
-                onChange={handleChangeAllocated} onBlur={() => {setEditable(false);}}>
+                type="number" value={ expense } data-id={props.id} max={( allocatableBudget * curr_exchange).toFixed(2) }
+                onChange={handleChangeAllocated} onBlur={onFinishEditAllocated}>
                 </input>
             </td>
             <td>

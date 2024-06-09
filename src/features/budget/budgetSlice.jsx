@@ -73,7 +73,7 @@ export const budgetSlice = createSlice({
     },
     reducers : {
         setBudget : (state,action) => {
-            state.value = action.payload;
+            state.value = ( action.payload / state.currencyExchange).toFixed(2);
         },
         setExpenditure : (state,action) => {
             state.expenditure = action.payload;
@@ -93,6 +93,7 @@ export const budgetSlice = createSlice({
                 x => x.id === action.payload[0]
                 );
             if (index > -1 ) {
+                //we remove the curr_exchange in the expense form
                 state.list[index].allocated = action.payload[1];
             }
         },
