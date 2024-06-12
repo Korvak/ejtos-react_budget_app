@@ -17,6 +17,7 @@ export const ExpensesTable = () => {
                     <td>Allocated budget</td>
                     <td>Edit</td>
                     <td>Delete</td>
+                    <td>Alfa</td>
                 </tr>
             </thead>
             <tbody>
